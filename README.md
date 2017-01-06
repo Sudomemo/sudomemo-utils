@@ -3,21 +3,19 @@ A collection of misc. scripts for reading/writing Flipnote Studio DSi's propriet
 
 ## Contents
 
-### PHP Classes
+#### PHP Classes
 
-* **[class.ugomenu.php](#.class.ugomenu.php)** - builds [`.ugo` menus](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.ugo-menu-format) on-the-fly.
-* **[class.ppmParser.php](#.class.ppmparser.php)** - parses metadata from Flipnote and Comment `.ppm` files.
+* **[class.ugomenu.php](#classugomenuphp)** - builds [`.ugo` menus](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.ugo-menu-format) on-the-fly.
+* **[class.ppmParser.php](#classppmparserphp)** - parses metadata from Flipnote and Comment `.ppm` files.
 
-### Python Scripts
+#### Python Scripts
 
 * **nbf.py** - converts to and from the [`.nbf` image format](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.nbf-image-format)
 * **npf.py** - converts to and from the [`.npf` image format](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.npf-image-format)
 
-## Usage
+## class.ugomenu.php
 
-### class.ugomenu.php
-
-#### Getting Started
+### Getting Started
 
 ```php
 <?php
@@ -31,9 +29,9 @@ require("path/to/class.ugomenu.php");
 $demoMemu = new ugomenu;
 ```
 
-#### Methods
+### Methods
 
-##### setType
+#### setType
 
 **Use:**
 
@@ -47,7 +45,7 @@ Set the menu type, from one of the values documented [here](https://github.com/F
 $demoMemu->setType("0");
 ```
 
-##### setMeta
+#### setMeta
 
 **Use:**
 
@@ -65,7 +63,7 @@ $demoMemu->setMeta("uppertitle", "demo page");
 $demoMemu->setMeta("uppersubbottom", "demo in progress");
 ```
 
-##### addDropdown
+#### addDropdown
 
 **Use:**
 
@@ -91,7 +89,7 @@ $demoMenu->addDropdown([
 ]);
 ```
 
-##### addButton
+#### addButton
 
 **Use:**
 
@@ -111,7 +109,7 @@ $demoMenu->addButton([
 ]);
 ```
 
-##### addItem
+#### addItem
 
 **Use:**
 
@@ -162,7 +160,7 @@ $demoMenu->addButton([
 ]);
 ```
 
-##### getUGO
+#### getUGO
 
 **Use:**
 
@@ -174,9 +172,9 @@ Build the ugomenu and return the data as a string, ready to send to the DSi clie
 echo $demoMenu->getUGO();
 ```
 
-### class.ppmParser.php
+## class.ppmParser.php
 
-#### Getting Started
+### Getting Started
 
 ```php
 <?php
@@ -194,9 +192,9 @@ $ppm = new ppmParser;
 $ppm->open("path/to/flipnote.ppm");
 ```
 
-#### Methods
+### Methods
 
-##### isCorrupted
+#### isCorrupted
 
 **Use:**
 
@@ -204,7 +202,7 @@ Does a simple "completeness" check on the PPM to check that all the data necessa
 
 Returns 1 if the PPM is corrupted, else 0.
 
-##### getMeta
+#### getMeta
 
 **Use:**
 
