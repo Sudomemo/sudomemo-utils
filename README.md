@@ -1,6 +1,8 @@
 # sudomemo-utils
 A collection of misc. scripts for reading/writing Flipnote Studio DSi's proprietary formats. Created for Sudomemo.
 
+*Please take note that these scripts are very much work-in-progress, and that the ones in this repo do not currently reflect the versions in use, either in production or development. In the coming weeks we will be updating them, and as such some things are likely to change. With that said, please feel free to suggest alterations to what you see here!*
+
 ## Contents
 
 #### PHP Classes
