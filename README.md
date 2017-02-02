@@ -44,7 +44,7 @@ Set the menu type, from one of the values documented [here](https://github.com/F
 ```php
 // set the menu type to type 0 (the same as the 'index' menu)
 
-$demoMemu->setType("0");
+$demoMenu->setType("0");
 ```
 
 #### setMeta
@@ -62,7 +62,7 @@ $demoMenu->setMeta("uppertitle", "demo page");
 
 // set the top screen subtitle to "demo in progress":
 
-$demoMnmu->setMeta("uppersubbottom", "demo in progress");
+$demoMenu->setMeta("uppersubbottom", "demo in progress");
 ```
 
 #### addDropdown
