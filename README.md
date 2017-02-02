@@ -28,7 +28,7 @@ require("path/to/class.ugomenu.php");
 
 // start a new ugomenu, for these examples, we'll create a generic "demo" menu:
 
-$demoMemu = new ugomenu;
+$demoMenu = new ugomenu;
 ```
 
 ### Methods
@@ -58,11 +58,11 @@ Set top screen text / background image by setting the equivalent meta-tag value,
 ```php
 // set the top screen title to "demo page":
 
-$demoMemu->setMeta("uppertitle", "demo page");
+$demoMenu->setMeta("uppertitle", "demo page");
 
 // set the top screen subtitle to "demo in progress":
 
-$demoMemu->setMeta("uppersubbottom", "demo in progress");
+$demoMnmu->setMeta("uppersubbottom", "demo in progress");
 ```
 
 #### addDropdown
@@ -125,7 +125,7 @@ Built-in icon values are documented [here](https://github.com/Flipnote-Collectiv
 // create a menu item with the label "tap me!":
 // when the user taps this item, they will be navigated to www.example.com/path/to/page.htm
 
-$demoMenu->addButton([
+$demoMenu->addItem([
   "label" => "tap me!",
   "url"   => "http://www.example.com/path/to/page.htm",
   // use an internal icon value:
@@ -134,7 +134,7 @@ $demoMenu->addButton([
 
 // create a menu item with a custom icon:
 
-$demoMenu->addButton([
+$demoMenu->addItem([
   "label" => "tap me!",
   "url"   => "http://www.example.com/path/to/page.htm",
   // embed a custom ntft image and use it as the icon for this image:
@@ -143,7 +143,7 @@ $demoMenu->addButton([
 
 // or for a flipnote grid thumbnail:
 
-$demoMenu->addButton([
+$demoMenu->addItem([
   "url"  => "http://www.example.com/path/to/page.htm",
   "file" => "/local/path/to/flipnote.ppm"
 ]);
@@ -151,7 +151,7 @@ $demoMenu->addButton([
 // you can also add a lock icon or counter to the item:
 // on Flipnote grid menus, the counter is used for the star count
 
-$demoMenu->addButton([
+$demoMenu->addItem([
   "label" => "tap me!",
   "url"   => "http://www.example.com/path/to/page.htm",
   "icon"  => "104",
