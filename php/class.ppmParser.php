@@ -11,6 +11,13 @@ Format documentation can be found on PBSDS' hatena-server wiki:
 https://github.com/pbsds/hatena-server/wiki/PPM-format
 */
 
+function addPadding($value, $padTo) {
+  if ($value % $padTo !== 0) {
+    return $value + $padTo - ($value % $padTo);
+  }
+  return $value;
+}
+
 class ppmParser {
   var $file;
   var $meta = false;
@@ -59,7 +66,7 @@ class ppmParser {
     // unpack the header section
     $ret = unpack($this->_getFormatString($spec), fread($this->file, 14));
     // calculate sound data offset
-    $ret["soundHeaderOffset"] = 0x06A0 + $ret["frameDataLength"] + $ret["frameCount"] + (4 - ($ret["frameCount"] % 4));
+    $ret["soundHeaderOffset"] = addPadding((0x06A0 + $ret["frameDataLength"] + $ret["frameCount"]), 4);
     return $ret;
   }
   function parseMeta(){
