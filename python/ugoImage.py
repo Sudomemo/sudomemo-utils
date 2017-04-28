@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # =========================
-# ugoImage.py version 1.0.0
+# ugoImage.py version 1.0.1
 # =========================
 #
 # Convert images to and from Flipnote Studio's proprietary image formats (NFTF, NPF and NBF)
@@ -40,7 +40,7 @@
 from PIL import Image, ImageOps
 import numpy as np
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 # Round up a number to the nearest power of two
 # Flipnote's image formats really like power of twos
@@ -342,13 +342,13 @@ if __name__ == "__main__":
                     width = int(args[argIndex + 2])
                     height = int(args[argIndex + 3])
 
-                    with open(path, "rb") as infile:
+                    with open(os.path.abspath(path), "rb") as infile:
                         image.load(infile, imageFormat=extension, imageWidth=width, imageHeight=height)
 
                 argIndex += 4
 
             else:
-                with open(path, "rb") as infile:
+                with open(os.path.abspath(path), "rb") as infile:
                     image.load(infile, imageFormat=extension)
 
                 argIndex += 2
