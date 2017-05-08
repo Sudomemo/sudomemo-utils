@@ -13,6 +13,7 @@ A collection of misc. scripts for reading/writing Flipnote Studio DSi's propriet
 #### Python Scripts
 
 * **ugoImage.py** - converts to and from the [`.nbf`](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.nbf-image-format), [`.npf`](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.npf-image-format) and [`.ntft`](https://github.com/Flipnote-Collective/flipnote-studio-docs/wiki/.ntft-image-format) image formats.
+* **ugoImageViewer.py** - experimental native viewer for the image formats handled by ugoImage.py
 
 ## class.ugomenu.php
 
