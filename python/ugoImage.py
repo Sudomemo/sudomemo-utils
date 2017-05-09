@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # =========================
-# ugoImage.py version 1.0.1
+# ugoImage.py version 1.0.2
 # =========================
 #
 # Convert images to and from Flipnote Studio's proprietary image formats (NFTF, NPF and NBF)
@@ -38,9 +38,10 @@
 #       Installation: https://www.scipy.org/install.html
 
 from PIL import Image, ImageOps
+from io import BytesIO
 import numpy as np
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 # Round up a number to the nearest power of two
 # Flipnote's image formats really like power of twos
@@ -97,7 +98,10 @@ class ugoImage:
         # Some prefer uppercase extentions over lowercase... I don't :P
         imageFormat = imageFormat.lower()
         if not imageFormat or imageFormat not in ["npf", "nbf", "ntft"]:
-            self.image = Image.open(imageBuffer)
+            # Copy the image to an internal buffer
+            buffer = BytesIO()
+            buffer.write(imageBuffer.read())
+            self.image = Image.open(buffer)
         elif imageFormat == "npf":
             self.image = self.parseNpf(imageBuffer, imageWidth, imageHeight)
         elif imageFormat == "nbf":
@@ -197,19 +201,22 @@ class ugoImage:
 
     # Write the image as an npf to buffer
     def writeNpf(self, outputBuffer):
-        alphamap = np.reshape(self.image.split()[-1], (-1, 2))
+        alphamap = self.image.split()[-1]
         # Convert the image to a paletted format with 15 slots
         image = self._limitImageColors(self.image, paletteSlots=15)
         # Get the image palette
         palette = np.reshape(image.getpalette(), (-1, 3))[0:15]
         paletteData = packColors(palette, useAlpha=False)
+        paletteData = np.insert(paletteData, 0, 0)
         # Get the image data and pad it
         imageData = np.array(image.getdata(), dtype=np.uint8)
         imageData = self._padImageData(imageData, image.size)
+        alphamap = self._padImageData(alphamap, image.size)
         # Reshape image data so each item = 2 pixels
         imageData = np.reshape(imageData, (-1, 2))
+        alphamap = np.reshape(alphamap, (-1, 2))
         # Combine those groups of two pixels together into a single byte
-        imageData = np.array([(pix[0]+1 if a[0] > 128 else 0) | ((pix[1]+1 if a[1] > 128 else 0) << 4) for a, pix in zip(alpha, imageData)], dtype=np.uint8)
+        imageData = np.array([(pix[0]+1 if a[0] > 128 else 0) | ((pix[1]+1 if a[1] > 128 else 0) << 4) for a, pix in zip(alphamap, imageData)], dtype=np.uint8)
         # Write to buffer
         self._writeUgarHeader(outputBuffer, paletteData.nbytes, imageData.nbytes)
         outputBuffer.write(paletteData.tobytes())
