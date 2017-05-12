@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # =========================
-# ugoImage.py version 1.0.2
+# ugoImage.py version 1.0.3
 # =========================
 #
 # Convert images to and from Flipnote Studio's proprietary image formats (NFTF, NPF and NBF)
@@ -41,7 +41,7 @@ from PIL import Image, ImageOps
 from io import BytesIO
 import numpy as np
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 # Round up a number to the nearest power of two
 # Flipnote's image formats really like power of twos
@@ -248,9 +248,9 @@ class ugoImage:
         imageData = np.array(image.getdata(), dtype=np.uint8)
         imageData = self._padImageData(imageData, image.size)
         # Write to file
-        self._writeUgarHeader(imageData, paletteData.nbytes, imageData.nbytes)
-        imageData.write(paletteData.tobytes())
-        imageData.write(imageData.tobytes())
+        self._writeUgarHeader(outputBuffer, paletteData.nbytes, imageData.nbytes)
+        outputBuffer.write(paletteData.tobytes())
+        outputBuffer.write(imageData.tobytes())
 
     # Reads an ntft image from buffer, and returns an array of RGBA pixels
     def parseNtft(self, buffer, imageWidth, imageHeight):
