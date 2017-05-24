@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # =========================
-# ugoImage.py version 1.0.3
+# ugoImage.py version 1.0.4
 # =========================
 #
 # Convert images to and from Flipnote Studio's proprietary image formats (NFTF, NPF and NBF)
@@ -41,7 +41,7 @@ from PIL import Image, ImageOps
 from io import BytesIO
 import numpy as np
 
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 
 # Round up a number to the nearest power of two
 # Flipnote's image formats really like power of twos
@@ -68,17 +68,17 @@ def unpackColor(value, useAlpha=True):
     b = b << 3 | (b >> 2)
     return ((r << 24) | (g << 16) | (b << 8) | (0x00 if useAlpha and a == 0 else 0xFF))
 
-# Output is a 16-bit integer:
+# Pack an abgr1555 color
 # color = [r, g, b, a (optional)]
 # useAlpha = use True to use the alpha value, else False
-# Returns [blue - 5 bits][green - 5 bits][red - 5 bits][alpha - 1 bit]
+# Returns a 16-bit uint [1 bit - alpha][5 bits - blue][5 bits - green][5 bits - red]
 def packColor(color, useAlpha=True):
-    # Limit each color channel to 5 bits, by removing the last 3 bits
-    r = color[0] & 0xF8
-    g = color[1] & 0xF8
-    b = color[2] & 0xF8
+    r = color[0] * 0x1F // 0xFF
+    g = color[1] * 0x1F // 0xFF
+    b = color[2] * 0x1F // 0xFF
+    a = 0 if color[3] < 0x80 and useAlpha == True else 1
     # Combine them together into one 16-bit integer
-    return ((b << 7) | (g << 2) | (r >> 3) | (0 if useAlpha and color[3] < 128 else 1))
+    return ((a<<15) | (b<<10) | (g<<5) | (r))
 
 # Convenience method to apply unpackColor over an array
 unpackColors = np.vectorize(unpackColor, otypes=[">u4"])
