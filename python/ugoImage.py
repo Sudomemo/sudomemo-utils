@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # =========================
-# ugoImage.py version 1.0.4
+# ugoImage.py version 1.0.5
 # =========================
 #
 # Convert images to and from Flipnote Studio's proprietary image formats (NFTF, NPF and NBF)
@@ -41,7 +41,7 @@ from PIL import Image, ImageOps
 from io import BytesIO
 import numpy as np
 
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 
 # Round up a number to the nearest power of two
 # Flipnote's image formats really like power of twos
@@ -76,7 +76,7 @@ def packColor(color, useAlpha=True):
     r = color[0] * 0x1F // 0xFF
     g = color[1] * 0x1F // 0xFF
     b = color[2] * 0x1F // 0xFF
-    a = 0 if color[3] < 0x80 and useAlpha == True else 1
+    a = 0 if useAlpha == True and color[3] < 0x80 else 1
     # Combine them together into one 16-bit integer
     return ((a<<15) | (b<<10) | (g<<5) | (r))
 
